@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Suduko:jar">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="Suduko.jar">
+      <element id="module-output" name="Suduko" />
+    </root>
+  </artifact>
+</component>
