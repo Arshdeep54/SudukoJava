@@ -37,7 +37,7 @@ public class gameFrame extends JFrame {
         sudokuPanel spanel= new sudokuPanel();
 
 
-        this.setSize(800,700);
+        this.setSize(1000,700);
         this.setTitle("Sudoku");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
