@@ -8,16 +8,17 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v3.13.0
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -29,17 +30,10 @@ jobs:
           jar --create --file build/SudokuGame.jar --manifest=src/META-INF/MANIFEST.MF -C build .
 
       - name: Package with jpackage
-        run: |
-          jpackage \
-            --input build \
-            --name SudokuGame \
-            --main-jar SudokuGame.jar \
-            --main-class sudoku \
-            --dest output \
-            --type app-image
+        run: jpackage --input build --name SudokuGame --main-jar SudokuGame.jar --main-class sudoku --dest output --type app-image
 
       - name: Upload Binaries
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: SudokuGame-${{ matrix.os }}
           path: output/
