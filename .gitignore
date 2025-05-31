@@ -1,1 +1,16 @@
 out/
+# Ignore compiled classes
+*.class
+
+# Ignore jar and packaged output
+*.jar
+/build/
+/dist/
+/out/
+/SudokuGame/
+
+# IDE/OS junk
+*.iml
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,45 @@
+name: Build SudokuGame for All Platforms
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Compile and Package
+        run: |
+          mkdir build
+          javac -d build src/*.java
+          jar --create --file build/SudokuGame.jar --manifest=src/META-INF/MANIFEST.MF -C build .
+
+      - name: Package with jpackage
+        run: |
+          jpackage \
+            --input build \
+            --name SudokuGame \
+            --main-jar SudokuGame.jar \
+            --main-class sudoku \
+            --dest output \
+            --type app-image
+
+      - name: Upload Binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: SudokuGame-${{ matrix.os }}
+          path: output/
